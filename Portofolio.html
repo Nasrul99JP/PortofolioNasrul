@@ -1,0 +1,1440 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>My Portfolio - Gallery, Biodata, Music & Videos</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+      :root {
+        --primary-color: #6a11cb;
+        --secondary-color: #2575fc;
+        --dark-color: #1a1a2e;
+        --light-color: #ffffff; /* Changed to white */
+        --accent-color: #ff4d6d;
+        --spotify-green: #1DB954;
+      }
+      
+      body {
+        background: linear-gradient(135deg, var(--dark-color), #16213e);
+        color: var(--light-color); /* All text will be white */
+        min-height: 100vh;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      }
+
+      /* Make sure all text is white */
+      h1, h2, h3, h4, h5, h6,
+      p, span, small, .text-muted,
+      .card-title, .card-text,
+      .info-item h5, .info-item p,
+      .song-title, .song-artist,
+      .video-info h3, .video-info p,
+      .video-meta {
+        color: white !important;
+      }
+
+      .navbar {
+        background: rgba(26, 26, 46, 0.8) !important;
+        backdrop-filter: blur(10px);
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+      }
+
+      .hero-section {
+        background: linear-gradient(135deg, rgba(106, 17, 203, 0.7), rgba(37, 117, 252, 0.7)), 
+                    url('fuji.jpg') center/cover no-repeat;
+        min-height: 60vh;
+        display: flex;
+        align-items: center;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .hero-section::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(circle at 20% 50%, transparent 10%, rgba(0,0,0,0.7) 100%);
+      }
+
+      .profile-img {
+        width: 180px;
+        height: 180px;
+        object-fit: cover;
+        border: 5px solid rgba(255, 255, 255, 0.2);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        transition: all 0.3s ease;
+      }
+
+      .profile-img:hover {
+        transform: scale(1.05);
+        border-color: var(--accent-color);
+      }
+
+      .section-title {
+        position: relative;
+        display: inline-block;
+        margin-bottom: 2rem;
+        color: var(--light-color);
+      }
+
+      .section-title::after {
+        content: '';
+        position: absolute;
+        bottom: -10px;
+        left: 0;
+        width: 50px;
+        height: 3px;
+        background: linear-gradient(90deg, var(--accent-color), var(--secondary-color));
+        border-radius: 3px;
+      }
+
+      .card {
+        background: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 15px;
+        transition: all 0.3s ease;
+        overflow: hidden;
+      }
+
+      .card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+        border-color: rgba(255, 255, 255, 0.2);
+      }
+
+      .card-img-top {
+        height: 200px;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+      }
+
+      .card:hover .card-img-top {
+        transform: scale(1.05);
+      }
+
+      .info-item {
+        padding: 1rem;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        transition: all 0.3s ease;
+      }
+
+      .info-item:hover {
+        background: rgba(255, 255, 255, 0.05);
+        transform: translateX(5px);
+      }
+
+      .info-item:last-child {
+        border-bottom: none;
+      }
+
+      .skill-bar {
+        height: 8px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 4px;
+        overflow: hidden;
+        margin-top: 0.5rem;
+      }
+
+      .skill-progress {
+        height: 100%;
+        background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+        border-radius: 4px;
+      }
+
+      .social-icon {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 50%;
+        margin-right: 0.5rem;
+        color: white;
+        transition: all 0.3s ease;
+      }
+
+      .social-icon:hover {
+        background: var(--accent-color);
+        transform: translateY(-3px);
+      }
+
+      .btn-slide {
+        position: relative;
+        overflow: hidden;
+        transition: all 0.3s;
+        z-index: 1;
+        border: none;
+        font-weight: 500;
+      }
+
+      .btn-slide::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border-radius: 4px;
+        z-index: -2;
+      }
+
+      .btn-slide::before {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 0%;
+        height: 100%;
+        transition: all 0.3s;
+        border-radius: 4px;
+        z-index: -1;
+      }
+
+      .btn-slide:hover {
+        color: #fff;
+        transform: translateY(-3px);
+        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+      }
+
+      .btn-slide:hover::before {
+        width: 100%;
+      }
+
+      .btn-slide-spotify::after { background-color: var(--spotify-green); }
+      .btn-slide-spotify::before { background-color: #1aa34a; }
+
+      .modal-content {
+        background: rgba(26, 26, 46, 0.9);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      footer {
+        background: rgba(26, 26, 46, 0.8);
+        backdrop-filter: blur(10px);
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      /* Spotify Player Styles */
+      .music-section {
+        background: linear-gradient(to bottom, #1DB954, #121212);
+        border-radius: 15px;
+        overflow: hidden;
+        margin-top: 3rem;
+      }
+
+      .music-header {
+        display: flex;
+        align-items: center;
+        padding: 1.5rem;
+        background-color: rgba(0,0,0,0.2);
+      }
+
+      .music-header i {
+        font-size: 2rem;
+        margin-right: 15px;
+        color: var(--spotify-green);
+      }
+
+      .music-title {
+        font-size: 1.5rem;
+        font-weight: bold;
+      }
+
+      .playlist-container {
+        display: flex;
+        height: 500px;
+        overflow: hidden;
+      }
+
+      .playlist-sidebar {
+        width: 250px;
+        background-color: #000000;
+        padding: 20px;
+        overflow-y: auto;
+      }
+
+      .playlist-logo {
+        font-size: 24px;
+        font-weight: bold;
+        margin-bottom: 20px;
+        text-align: center;
+        text-decoration: underline;
+      }
+
+      .playlist-menu-section {
+        margin-bottom: 30px;
+      }
+
+      .playlist-menu-title {
+        font-size: 18px;
+        margin-bottom: 15px;
+        color: white;
+      }
+
+      .playlist-menu-item {
+        padding: 12px 10px;
+        cursor: pointer;
+        border-radius: 5px;
+        margin-bottom: 5px;
+        transition: background-color 0.3s;
+        display: flex;
+        align-items: center;
+      }
+
+      .playlist-menu-item:hover {
+        background-color: #282828;
+      }
+
+      .playlist-menu-item i {
+        margin-right: 10px;
+        width: 20px;
+        text-align: center;
+      }
+
+      .playlist-menu-item.active {
+        background-color: #282828;
+        color: var(--spotify-green);
+      }
+
+      .playlist-content {
+        flex: 1;
+        padding: 20px;
+        overflow-y: auto;
+      }
+
+      .playlist-view {
+        display: none;
+      }
+
+      .playlist-view.active {
+        display: block;
+        animation: fadeIn 0.5s;
+      }
+
+      .playlist-cover {
+        width: 100%;
+        height: 250px;
+        object-fit: cover;
+        border-radius: 10px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+      }
+
+      .playlist-info h2 {
+        font-size: 2rem;
+        font-weight: bold;
+        margin: 1rem 0;
+      }
+
+      .playlist-description {
+        color: #b3b3b3;
+        margin-bottom: 1.5rem;
+      }
+
+      .song-list {
+        margin-top: 2rem;
+      }
+
+      .song {
+        display: flex;
+        align-items: center;
+        padding: 10px;
+        border-radius: 5px;
+        margin-bottom: 10px;
+        background-color: rgba(255, 255, 255, 0.05);
+        transition: background-color 0.3s;
+      }
+
+      .song:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+      }
+
+      .song img {
+        width: 50px;
+        height: 50px;
+        border-radius: 5px;
+        margin-right: 20px;
+      }
+
+      .song-info {
+        flex: 1;
+      }
+
+      .song-title {
+        font-weight: 500;
+        margin-bottom: 5px;
+      }
+
+      .song-artist {
+        font-size: 14px;
+        color: #b3b3b3;
+      }
+
+      .song-controls {
+        display: flex;
+        align-items: center;
+      }
+
+      .song-controls audio {
+        filter: invert(1) sepia(1) hue-rotate(90deg) saturate(3);
+        width: 200px;
+        height: 30px;
+        margin-right: 15px;
+      }
+
+      .player-bar {
+        height: 80px;
+        background-color: #181818;
+        border-top: 1px solid #282828;
+        display: flex;
+        padding: 0 20px;
+        align-items: center;
+        margin-top: 2rem;
+        border-radius: 0 0 15px 15px;
+      }
+
+      .now-playing {
+        width: 250px;
+        display: flex;
+        align-items: center;
+      }
+
+      .now-playing-image {
+        width: 50px;
+        height: 50px;
+        background-color: #333;
+        margin-right: 15px;
+        border-radius: 5px;
+      }
+
+      .now-playing-info {
+        flex: 1;
+      }
+
+      .now-playing-title {
+        font-size: 14px;
+        margin-bottom: 5px;
+      }
+
+      .now-playing-artist {
+        font-size: 12px;
+        color: #b3b3b3;
+      }
+
+      .player-controls {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .player-buttons {
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+      }
+
+      .player-button {
+        background: none;
+        border: none;
+        color: white;
+        font-size: 16px;
+        margin: 0 10px;
+        cursor: pointer;
+      }
+
+      .play-button {
+        font-size: 28px;
+        color: white;
+      }
+
+      .progress-bar {
+        width: 100%;
+        display: flex;
+        align-items: center;
+      }
+
+      .progress-time {
+        font-size: 12px;
+        color: #b3b3b3;
+        width: 40px;
+      }
+
+      .progress-container {
+        flex: 1;
+        height: 4px;
+        background-color: #4d4d4d;
+        border-radius: 2px;
+        margin: 0 10px;
+        cursor: pointer;
+      }
+
+      .progress {
+        height: 100%;
+        background-color: #b3b3b3;
+        border-radius: 2px;
+        width: 30%;
+      }
+
+      .extra-controls {
+        width: 250px;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+      }
+
+      .volume-container {
+        display: flex;
+        align-items: center;
+      }
+
+      .volume-icon {
+        margin-right: 10px;
+        color: #b3b3b3;
+      }
+
+      .volume-bar {
+        width: 80px;
+        height: 4px;
+        background-color: #4d4d4d;
+        border-radius: 2px;
+        cursor: pointer;
+      }
+
+      .volume-progress {
+        height: 100%;
+        background-color: #b3b3b3;
+        border-radius: 2px;
+        width: 70%;
+      }
+
+      /* Video Gallery Styles */
+      .video-gallery-section {
+        background-color: rgba(0, 0, 0, 0.7);
+        border-radius: 15px;
+        overflow: hidden;
+        margin-top: 3rem;
+        padding: 2rem;
+      }
+
+      .video-gallery-header {
+        display: flex;
+        align-items: center;
+        margin-bottom: 2rem;
+      }
+
+      .video-gallery-header i {
+        font-size: 2rem;
+        margin-right: 15px;
+        color: var(--accent-color);
+      }
+
+      .video-gallery-title {
+        font-size: 1.8rem;
+        font-weight: bold;
+      }
+
+      .video-gallery-description {
+        color: #b3b3b3;
+        margin-bottom: 1.5rem;
+      }
+
+      .video-gallery {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+        gap: 25px;
+      }
+
+      .video-card {
+        background-color: rgba(0, 0, 0, 0.5);
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        transition: all 0.3s ease;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        backdrop-filter: blur(5px);
+        -webkit-backdrop-filter: blur(5px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .video-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+        background-color: rgba(0, 0, 0, 0.6);
+      }
+
+      .video-container {
+        position: relative;
+        width: 100%;
+        height: 0;
+        padding-bottom: 56.25%;
+        overflow: hidden;
+        background-color: transparent;
+      }
+
+      .video-container video {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        background-color: transparent;
+      }
+
+      .video-info {
+        padding: 18px;
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .video-info h3 {
+        margin: 0 0 12px;
+        font-size: 1.2em;
+        font-weight: 600;
+      }
+
+      .video-info p {
+        margin: 0 0 15px;
+        font-size: 0.95em;
+        line-height: 1.5;
+        flex-grow: 1;
+        color: rgba(255,255,255,0.8);
+      }
+
+      .video-meta {
+        display: flex;
+        justify-content: space-between;
+        font-size: 0.85em;
+        margin-top: auto;
+        padding-top: 12px;
+        border-top: 1px solid rgba(255,255,255,0.1);
+        color: rgba(255,255,255,0.6);
+      }
+
+      .video-meta i {
+        margin-right: 5px;
+      }
+
+      /* Removed the colored navigation buttons from gallery and video sections */
+      .gallery .btn-slide,
+      .video-nav-buttons {
+        display: none;
+      }
+
+      @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+      }
+
+      @media (max-width: 768px) {
+        .video-gallery {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <header>
+      <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container">
+          <a class="navbar-brand fw-bold" href="#">MyPortfolio</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+              <li class="nav-item">
+                <a class="nav-link active" href="#home">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#about">About</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#gallery">Gallery</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#music">Music</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#videos">Videos</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#contact">Contact</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      <!-- Hero Section -->
+      <section id="home" class="hero-section">
+        <div class="container text-center position-relative">
+          <img src="profile.jpg" alt="Profile" class="profile-img rounded-circle mb-4 floating">
+          <h1 class="display-4 fw-bold mb-3">John Doe</h1>
+          <p class="lead mb-4">Web Developer & Multimedia Enthusiast</p>
+          <div class="d-flex justify-content-center gap-3">
+            <a href="#about" class="btn btn-primary px-4 py-2">About Me</a>
+            <a href="#gallery" class="btn btn-outline-light px-4 py-2">My Gallery</a>
+            <a href="#music" class="btn btn-slide btn-slide-spotify px-4 py-2">Music Playlist</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- About Section -->
+      <section id="about" class="py-5">
+        <div class="container py-5">
+          <h2 class="text-center section-title">About Me</h2>
+          
+          <div class="row mt-5">
+            <div class="col-lg-6 mb-4">
+              <div class="card h-100 p-4">
+                <h3 class="mb-4"><i class="fas fa-user me-2"></i>Personal Info</h3>
+                <div class="info-item">
+                  <h5>Full Name</h5>
+                  <p class="mb-0">John Doe</p>
+                </div>
+                <div class="info-item">
+                  <h5>Date of Birth</h5>
+                  <p class="mb-0">January 15, 1995</p>
+                </div>
+                <div class="info-item">
+                  <h5>Address</h5>
+                  <p class="mb-0">123 Example Street, Jakarta, Indonesia</p>
+                </div>
+                <div class="info-item">
+                  <h5>Email</h5>
+                  <p class="mb-0">john.doe@example.com</p>
+                </div>
+                <div class="info-item">
+                  <h5>Phone</h5>
+                  <p class="mb-0">+62 812-3456-7890</p>
+                </div>
+              </div>
+            </div>
+            
+            <div class="col-lg-6 mb-4">
+              <div class="card h-100 p-4">
+                <h3 class="mb-4"><i class="fas fa-graduation-cap me-2"></i>Education</h3>
+                <div class="info-item">
+                  <h5>University of Indonesia</h5>
+                  <p class="mb-0">Bachelor of Computer Science (2013-2017)</p>
+                </div>
+                <div class="info-item">
+                  <h5>SMA Negeri 5 Jakarta</h5>
+                  <p class="mb-0">Science Major (2010-2013)</p>
+                </div>
+                <div class="info-item">
+                  <h5>SMP Negeri 2 Jakarta</h5>
+                  <p class="mb-0">(2007-2010)</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="row mt-4">
+            <div class="col-lg-6 mb-4">
+              <div class="card h-100 p-4">
+                <h3 class="mb-4"><i class="fas fa-code me-2"></i>Skills</h3>
+                <div class="mb-3">
+                  <h5>Web Development</h5>
+                  <div class="skill-bar">
+                    <div class="skill-progress" style="width: 90%"></div>
+                  </div>
+                </div>
+                <div class="mb-3">
+                  <h5>Photography</h5>
+                  <div class="skill-bar">
+                    <div class="skill-progress" style="width: 85%"></div>
+                  </div>
+                </div>
+                <div class="mb-3">
+                  <h5>Graphic Design</h5>
+                  <div class="skill-bar">
+                    <div class="skill-progress" style="width: 75%"></div>
+                  </div>
+                </div>
+                <div class="mb-3">
+                  <h5>Video Editing</h5>
+                  <div class="skill-bar">
+                    <div class="skill-progress" style="width: 70%"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="col-lg-6 mb-4">
+              <div class="card h-100 p-4">
+                <h3 class="mb-4"><i class="fas fa-heart me-2"></i>Hobbies</h3>
+                <div class="row">
+                  <div class="col-6 mb-3">
+                    <div class="d-flex align-items-center">
+                      <i class="fas fa-camera me-3 text-accent"></i>
+                      <span>Photography</span>
+                    </div>
+                  </div>
+                  <div class="col-6 mb-3">
+                    <div class="d-flex align-items-center">
+                      <i class="fas fa-plane me-3 text-accent"></i>
+                      <span>Traveling</span>
+                    </div>
+                  </div>
+                  <div class="col-6 mb-3">
+                    <div class="d-flex align-items-center">
+                      <i class="fas fa-music me-3 text-accent"></i>
+                      <span>Music</span>
+                    </div>
+                  </div>
+                  <div class="col-6 mb-3">
+                    <div class="d-flex align-items-center">
+                      <i class="fas fa-book me-3 text-accent"></i>
+                      <span>Reading</span>
+                    </div>
+                  </div>
+                  <div class="col-6 mb-3">
+                    <div class="d-flex align-items-center">
+                      <i class="fas fa-utensils me-3 text-accent"></i>
+                      <span>Cooking</span>
+                    </div>
+                  </div>
+                  <div class="col-6 mb-3">
+                    <div class="d-flex align-items-center">
+                      <i class="fas fa-gamepad me-3 text-accent"></i>
+                      <span>Gaming</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Gallery Section -->
+      <section id="gallery" class="py-5 bg-dark">
+        <div class="container py-5">
+          <h2 class="text-center section-title">Photo Gallery</h2>
+          <p class="text-center mb-5">Browse my favorite captured moments</p>
+
+          <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
+            <!-- Card 1 -->
+            <div class="col">
+              <div class="card shadow-sm h-100">
+                <img src="Lovely.jpg" class="card-img-top" alt="Lovely">
+                <div class="card-body">
+                  <h5 class="card-title">Portrait</h5>
+                  <p class="card-text">A lovely portrait on vacation.</p>
+                </div>
+                <div class="card-footer bg-transparent border-top-0">
+                  <div class="d-flex justify-content-between align-items-center">
+                    <small>May 2023</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Card 2 -->
+            <div class="col">
+              <div class="card shadow-sm h-100">
+                <img src="Kwn bng nasrul.jpg" class="card-img-top" alt="Image 2">
+                <div class="card-body">
+                  <h5 class="card-title">Mount Fuji</h5>
+                  <p class="card-text">Morning view of Mount Fuji.</p>
+                </div>
+                <div class="card-footer bg-transparent border-top-0">
+                  <div class="d-flex justify-content-between align-items-center">
+                    <small>Apr 2023</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Card 3 -->
+            <div class="col">
+              <div class="card shadow-sm h-100">
+                <img src="Zahra 2.jpg" class="card-img-top" alt="Image 3">
+                <div class="card-body">
+                  <h5 class="card-title">Cherry Blossoms</h5>
+                  <p class="card-text">Springtime in full bloom.</p>
+                </div>
+                <div class="card-footer bg-transparent border-top-0">
+                  <div class="d-flex justify-content-between align-items-center">
+                    <small>Mar 2023</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Card 4 -->
+            <div class="col">
+              <div class="card shadow-sm h-100">
+                <img src="cwek ujung.jpg" class="card-img-top" alt="Image 4">
+                <div class="card-body">
+                  <h5 class="card-title">Tea Ceremony</h5>
+                  <p class="card-text">Traditional Japanese tea ritual.</p>
+                </div>
+                <div class="card-footer bg-transparent border-top-0">
+                  <div class="d-flex justify-content-between align-items-center">
+                    <small>Feb 2023</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Card 5 -->
+            <div class="col">
+              <div class="card shadow-sm h-100">
+                <img src="sayang ku.jpg" class="card-img-top" alt="Image 5">
+                <div class="card-body">
+                  <h5 class="card-title">Temple</h5>
+                  <p class="card-text">A peaceful temple among nature.</p>
+                </div>
+                <div class="card-footer bg-transparent border-top-0">
+                  <div class="d-flex justify-content-between align-items-center">
+                    <small>Jan 2023</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Card 6 -->
+            <div class="col">
+              <div class="card shadow-sm h-100">
+                <img src="Anak smanti.jpg" class="card-img-top" alt="Image 6">
+                <div class="card-body">
+                  <h5 class="card-title">Street Food</h5>
+                  <p class="card-text">Trying local flavors in Tokyo.</p>
+                </div>
+                <div class="card-footer bg-transparent border-top-0">
+                  <div class="d-flex justify-content-between align-items-center">
+                    <small>Dec 2022</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Music Section -->
+      <section id="music" class="py-5">
+        <div class="container">
+          <div class="music-section">
+            <div class="music-header">
+              <i class="fab fa-spotify"></i>
+              <h2 class="music-title">My Music Playlist</h2>
+            </div>
+            
+            <div class="playlist-container">
+              <div class="playlist-sidebar">
+                <div class="playlist-logo">Musically</div>
+                
+                <div class="playlist-menu-section">
+                  <div class="playlist-menu-title">Genre</div>
+                  <div class="playlist-menu-item active" data-playlist="pop">
+                    <i class="fas fa-heart" style="color: red;"></i>
+                    Pop Romantis
+                  </div>
+                  <div class="playlist-menu-item" data-playlist="hiphop">
+                    <i class="fas fa-headphones-alt"></i>
+                    Hip Hop
+                  </div>
+                  <div class="playlist-menu-item" data-playlist="edm">
+                    <i class="fas fa-guitar"></i>
+                    EDM
+                  </div>
+                  <div class="playlist-menu-item" data-playlist="indie">
+                    <i class="fas fa-music"></i>
+                    Indie
+                  </div>
+                </div>
+              </div>
+              
+              <div class="playlist-content">
+                <!-- Pop Playlist -->
+                <div class="playlist-view active" id="pop">
+                  <img src="Pop Music.jpg" class="playlist-cover" alt="Pop Playlist Cover">
+                  
+                  <div class="playlist-info">
+                    <h2><i class="fas fa-heart" style="color: red;"></i> Playlist Favorit Pop</h2>
+                    <p class="playlist-description">Koleksi lagu pop romantis terbaik untuk menemani hari-harimu</p>
+                    
+                    <div class="song-list">
+                      <div class="song">
+                        <img src="Anugrah Terindah.jpeg" alt="Anugrah Terindah">
+                        <div class="song-info">
+                          <div class="song-title">Anugrah Terindah</div>
+                          <div class="song-artist">Andmesh</div>
+                        </div>
+                        <div class="song-controls">
+                          <audio controls loop>
+                            <source src="ANDMESH - ANUGERAH TERINDAH (VIDEO LIRIK) LIRIK LAGU TERBARU.mp3" type="audio/mpeg">
+                          </audio>
+                        </div>
+                      </div>
+                      
+                      <div class="song">
+                        <img src="Asal kau bahagia.jpeg" alt="Asal Kau Bahagia">
+                        <div class="song-info">
+                          <div class="song-title">Asal Kau Bahagia</div>
+                          <div class="song-artist">Armada</div>
+                        </div>
+                        <div class="song-controls">
+                          <audio controls loop>
+                            <source src="Armada - Asal Kau Bahagia (Official Lyric Video).mp3" type="audio/mpeg">
+                          </audio>
+                        </div>
+                      </div>
+                      
+                      <div class="song">
+                        <img src="Separuh aku.jpeg" alt="Separuh Aku">
+                        <div class="song-info">
+                          <div class="song-title">Separuh Aku</div>
+                          <div class="song-artist">NOAH</div>
+                        </div>
+                        <div class="song-controls">
+                          <audio controls loop>
+                            <source src="NOAH - Separuh Aku (Official Audio).mp3" type="audio/mpeg">
+                          </audio>
+                        </div>
+                      </div>
+                      
+                      <div class="song">
+                        <img src="Jaga slalu hatimu.jpeg" alt="Jaga Selalu Hatimu">
+                        <div class="song-info">
+                          <div class="song-title">Jaga Selalu Hatimu</div>
+                          <div class="song-artist">Seventeen</div>
+                        </div>
+                        <div class="song-controls">
+                          <audio controls loop>
+                            <source src="Jaga Selalu Hatimu - Seventeen Lirik Lagu.mp3" type="audio/mpeg">
+                          </audio>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                <!-- Hip Hop Playlist -->
+                <div class="playlist-view" id="hiphop">
+                  <img src="HipHop.jpg" class="playlist-cover" alt="Hip Hop Playlist Cover">
+                  
+                  <div class="playlist-info">
+                    <h2><i class="fas fa-headphones-alt"></i> Hip Hop Essentials</h2>
+                    <p class="playlist-description">Koleksi lagu hip hop terbaik sepanjang masa</p>
+                    
+                    <div class="song-list">
+                      <div class="song">
+                        <img src="HipHop1.jpg" alt="Lagu Hip Hop 1">
+                        <div class="song-info">
+                          <div class="song-title">Sicko Mode</div>
+                          <div class="song-artist">Travis Scott</div>
+                        </div>
+                        <div class="song-controls">
+                          <audio controls loop>
+                            <source src="hiphop1.mp3" type="audio/mpeg">
+                          </audio>
+                        </div>
+                      </div>
+                      
+                      <div class="song">
+                        <img src="HipHop2.jpg" alt="Lagu Hip Hop 2">
+                        <div class="song-info">
+                          <div class="song-title">God's Plan</div>
+                          <div class="song-artist">Drake</div>
+                        </div>
+                        <div class="song-controls">
+                          <audio controls loop>
+                            <source src="hiphop2.mp3" type="audio/mpeg">
+                          </audio>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                <!-- EDM Playlist -->
+                <div class="playlist-view" id="edm">
+                  <img src="EDM.jpg" class="playlist-cover" alt="EDM Playlist Cover">
+                  
+                  <div class="playlist-info">
+                    <h2><i class="fas fa-guitar"></i> EDM Festival</h2>
+                    <p class="playlist-description">Lagu EDM terbaik untuk pesta dan festival</p>
+                    
+                    <div class="song-list">
+                      <div class="song">
+                        <img src="EDM1.jpg" alt="Lagu EDM 1">
+                        <div class="song-info">
+                          <div class="song-title">Titanium</div>
+                          <div class="song-artist">David Guetta ft. Sia</div>
+                        </div>
+                        <div class="song-controls">
+                          <audio controls loop>
+                            <source src="edm1.mp3" type="audio/mpeg">
+                          </audio>
+                        </div>
+                      </div>
+                      
+                      <div class="song">
+                        <img src="EDM2.jpg" alt="Lagu EDM 2">
+                        <div class="song-info">
+                          <div class="song-title">Animals</div>
+                          <div class="song-artist">Martin Garrix</div>
+                        </div>
+                        <div class="song-controls">
+                          <audio controls loop>
+                            <source src="edm2.mp3" type="audio/mpeg">
+                          </audio>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                <!-- Indie Playlist -->
+                <div class="playlist-view" id="indie">
+                  <img src="Indie.jpg" class="playlist-cover" alt="Indie Playlist Cover">
+                  
+                  <div class="playlist-info">
+                    <h2><i class="fas fa-music"></i> Indie Vibes</h2>
+                    <p class="playlist-description">Lagu indie terbaik dari artis lokal dan internasional</p>
+                    
+                    <div class="song-list">
+                      <div class="song">
+                        <img src="Indie1.jpg" alt="Lagu Indie 1">
+                        <div class="song-info">
+                          <div class="song-title">Riptide</div>
+                          <div class="song-artist">Vance Joy</div>
+                        </div>
+                        <div class="song-controls">
+                          <audio controls loop>
+                            <source src="indie1.mp3" type="video/mp4">
+                          </audio>
+                        </div>
+                      </div>
+                      
+                      <div class="song">
+                        <img src="Indie2.jpg" alt="Lagu Indie 2">
+                        <div class="song-info">
+                          <div class="song-title">Ho Hey</div>
+                          <div class="song-artist">The Lumineers</div>
+                        </div>
+                        <div class="song-controls">
+                          <audio controls loop>
+                            <source src="indie2.mp3" type="video/mp4">
+                          </audio>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="player-bar">
+              <div class="now-playing">
+                <div class="now-playing-image"></div>
+                <div class="now-playing-info">
+                  <div class="now-playing-title">Anugrah Terindah</div>
+                  <div class="now-playing-artist">Andmesh</div>
+                </div>
+              </div>
+              
+              <div class="player-controls">
+                <div class="player-buttons">
+                  <button class="player-button">⏮</button>
+                  <button class="player-button play-button">⏯</button>
+                  <button class="player-button">⏭</button>
+                </div>
+                <div class="progress-bar">
+                  <div class="progress-time">1:23</div>
+                  <div class="progress-container">
+                    <div class="progress"></div>
+                  </div>
+                  <div class="progress-time">3:45</div>
+                </div>
+              </div>
+              
+              <div class="extra-controls">
+                <div class="volume-container">
+                  <div class="volume-icon">🔊</div>
+                  <div class="volume-bar">
+                    <div class="volume-progress"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Video Gallery Section -->
+      <section id="videos" class="py-5">
+        <div class="container">
+          <div class="video-gallery-section">
+            <div class="video-gallery-header">
+              <i class="fas fa-video"></i>
+              <h2 class="video-gallery-title">My Video Gallery</h2>
+            </div>
+            <p class="video-gallery-description">Collection of my favorite videos and memories</p>
+            
+            <div class="video-gallery">
+              <!-- Video Card 1 -->
+              <div class="video-card">
+                <div class="video-container">
+                  <video controls poster="thumbnail1.jpg">
+                    <source src="gilbert.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                  </video>
+                </div>
+                <div class="video-info">
+                  <h3>Beautiful Nature Scenes</h3>
+                  <p>Relaxing nature footage from around the world with stunning landscapes and wildlife.</p>
+                  <div class="video-meta">
+                    <span><i class="far fa-clock"></i> 12:34</span>
+                    <span><i class="far fa-calendar-alt"></i> 15 Jun 2023</span>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Video Card 2 -->
+              <div class="video-card">
+                <div class="video-container">
+                  <video controls poster="thumbnail2.jpg">
+                    <source src="rafi.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                  </video>
+                </div>
+                <div class="video-info">
+                  <h3>Urban Exploration</h3>
+                  <p>Time-lapse of city life at night showing the vibrant energy of metropolitan areas.</p>
+                  <div class="video-meta">
+                    <span><i class="far fa-clock"></i> 8:21</span>
+                    <span><i class="far fa-calendar-alt"></i> 2 May 2023</span>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Video Card 3 -->
+              <div class="video-card">
+                <div class="video-container">
+                  <video controls poster="thumbnail3.jpg">
+                    <source src="Kata kata.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                  </video>
+                </div>
+                <div class="video-info">
+                  <h3>Summer Vacation 2023</h3>
+                  <p>Highlights from our amazing trip to Bali featuring beaches, culture and adventures.</p>
+                  <div class="video-meta">
+                    <span><i class="far fa-clock"></i> 15:47</span>
+                    <span><i class="far fa-calendar-alt"></i> 28 Jul 2023</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Contact Section -->
+      <section id="contact" class="py-5">
+        <div class="container py-5">
+          <h2 class="text-center section-title">Get In Touch</h2>
+          
+          <div class="row mt-5">
+            <div class="col-lg-6 mb-4">
+              <div class="card h-100 p-4">
+                <h3 class="mb-4"><i class="fas fa-paper-plane me-2"></i>Contact Info</h3>
+                <div class="info-item">
+                  <h5><i class="fas fa-envelope me-2"></i>Email</h5>
+                  <p class="mb-0">john.doe@example.com</p>
+                </div>
+                <div class="info-item">
+                  <h5><i class="fas fa-phone me-2"></i>Phone</h5>
+                  <p class="mb-0">+62 812-3456-7890</p>
+                </div>
+                <div class="info-item">
+                  <h5><i class="fas fa-map-marker-alt me-2"></i>Address</h5>
+                  <p class="mb-0">123 Example Street, Jakarta, Indonesia</p>
+                </div>
+                <div class="mt-4">
+                  <h5 class="mb-3">Social Media</h5>
+                  <div class="d-flex">
+                    <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-github"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-behance"></i></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="col-lg-6 mb-4">
+              <div class="card h-100 p-4">
+                <h3 class="mb-4"><i class="fas fa-envelope me-2"></i>Send Message</h3>
+                <form>
+                  <div class="mb-3">
+                    <input type="text" class="form-control bg-transparent text-white border-secondary" placeholder="Your Name">
+                  </div>
+                  <div class="mb-3">
+                    <input type="email" class="form-control bg-transparent text-white border-secondary" placeholder="Your Email">
+                  </div>
+                  <div class="mb-3">
+                    <input type="text" class="form-control bg-transparent text-white border-secondary" placeholder="Subject">
+                  </div>
+                  <div class="mb-3">
+                    <textarea class="form-control bg-transparent text-white border-secondary" rows="5" placeholder="Your Message"></textarea>
+                  </div>
+                  <button type="submit" class="btn btn-primary px-4 py-2">Send Message</button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Modal View -->
+    <div class="modal fade" id="imageModal" tabindex="-1">
+      <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+          <div class="modal-body p-0">
+            <img src="" class="img-fluid w-100 rounded" id="modalImage" alt="Preview">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer class="text-center py-4">
+      <div class="container">
+        <p class="mb-0">&copy; 2024 John Doe Portfolio. All rights reserved.</p>
+      </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        // Image modal functionality
+        const viewButtons = document.querySelectorAll('.view-btn');
+        const modalImage = document.getElementById('modalImage');
+
+        viewButtons.forEach(btn => {
+          btn.addEventListener('click', function () {
+            const imgSrc = this.getAttribute('data-img');
+            modalImage.src = imgSrc;
+          });
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+          anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            document.querySelector(this.getAttribute('href')).scrollIntoView({
+              behavior: 'smooth'
+            });
+          });
+        });
+
+        // Navbar background change on scroll
+        window.addEventListener('scroll', function() {
+          const navbar = document.querySelector('.navbar');
+          if (window.scrollY > 50) {
+            navbar.style.background = 'rgba(26, 26, 46, 0.95)';
+          } else {
+            navbar.style.background = 'rgba(26, 26, 46, 0.8)';
+          }
+        });
+
+        // Music player functionality
+        const menuItems = document.querySelectorAll('.playlist-menu-item');
+        const playButton = document.querySelector('.play-button');
+        let isPlaying = false;
+        
+        // Switch playlists
+        menuItems.forEach(item => {
+          item.addEventListener('click', function() {
+            // Remove active class from all menu items
+            menuItems.forEach(i => i.classList.remove('active'));
+            
+            // Add active class to clicked item
+            this.classList.add('active');
+            
+            // Hide all playlist views
+            document.querySelectorAll('.playlist-view').forEach(view => {
+              view.classList.remove('active');
+            });
+            
+            // Show selected playlist view
+            const playlistId = this.getAttribute('data-playlist');
+            document.getElementById(playlistId).classList.add('active');
+            
+            // Update now playing info with first song from playlist
+            const firstSong = document.querySelector(`#${playlistId} .song:first-child`);
+            if (firstSong) {
+              const songTitle = firstSong.querySelector('.song-title').textContent;
+              const songArtist = firstSong.querySelector('.song-artist').textContent;
+              
+              document.querySelector('.now-playing-title').textContent = songTitle;
+              document.querySelector('.now-playing-artist').textContent = songArtist;
+            }
+          });
+        });
+        
+        // Play/pause button functionality
+        playButton.addEventListener('click', function() {
+          isPlaying = !isPlaying;
+          this.textContent = isPlaying ? '⏸' : '⏯';
+        });
+        
+        // Song click functionality
+        document.querySelectorAll('.song').forEach(song => {
+          song.addEventListener('click', function(e) {
+            // Don't trigger if clicking on audio controls or download button
+            if (e.target.tagName === 'AUDIO' || e.target.closest('audio')) {
+              return;
+            }
+            
+            const songTitle = this.querySelector('.song-title').textContent;
+            const songArtist = this.querySelector('.song-artist').textContent;
+            
+            document.querySelector('.now-playing-title').textContent = songTitle;
+            document.querySelector('.now-playing-artist').textContent = songArtist;
+            
+            // Auto play the song
+            const audio = this.querySelector('audio');
+            if (audio) {
+              audio.play();
+              isPlaying = true;
+              playButton.textContent = '⏸';
+            }
+          });
+        });
+
+        // Video player functionality - pause other videos when one plays
+        document.addEventListener('play', function(e) {
+          const videos = document.getElementsByTagName('video');
+          for(let i = 0; i < videos.length; i++) {
+            if(videos[i] != e.target) {
+              videos[i].pause();
+            }
+          }
+        }, true);
+      });
+    </script>
+  </body>
+</html>
